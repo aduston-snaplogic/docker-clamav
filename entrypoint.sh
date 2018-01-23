@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start the freshclam daemon
-/usr/bin/freshclam --daemon --config-file=/etc/clamd.d/freshclam.conf
+/usr/bin/freshclam --daemon --config-file=/clamav/etc/freshclam.conf
 status=$?
 if [ ${status} -ne 0 ]; then
   echo "Failed to start freshclam: $status"
@@ -9,7 +9,7 @@ if [ ${status} -ne 0 ]; then
 fi
 
 # Start the clamd service
-/usr/sbin/clamd -c /etc/clamd.d/scan.conf
+/usr/sbin/clamd -c /clamav/etc/scan.conf
 status=$?
 if [ ${status} -ne 0 ]; then
   echo "Failed to start clamd: $status"
