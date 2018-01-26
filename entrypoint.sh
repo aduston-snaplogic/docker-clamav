@@ -15,8 +15,8 @@ if [ ${status} -ne 0 ]; then
   echo "Failed to start clamd: $status"
   exit ${status}
 fi
-
-/usr/bin/python /app/run.py
+echo "${appuser}"
+exec su ${appuser} -c "/usr/bin/python /app/run.py"
 status=$?
 if [ ${status} -ne 0 ]; then
   echo "Failed to start demo app: $status"
