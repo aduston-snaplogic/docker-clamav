@@ -13,7 +13,16 @@ To build the Docker container check out this repo and run `docker build`:
     
 ## Running the container 
 
-By default the flask app will bind to port 5000. clamav stores its logs and pid files in the `/clamav`. It is 
-recommended to mount that directory to a volume outside the container. 
+By default the flask app will bind to port 5000. clamav and freshclam will store logs and pid files in `/clamav` 
 
-    docker run -it -d --name clamav-demo -v clamav:/clamav -p 5000:5000 clamav-demo:latest
+The directory containing the `scan.conf` and `freshclam.conf` config files should be mounted to the container at
+`/clamav/etc`
+
+In order for ClamAV to run with on-access scanning enabled it needs to be run as `root`. However, it's not sufficient to
+simply run the clamd process as the root user inside the container. The user must have the sys_admin capability in order
+for clamav to initiate fanotify. This requires passing the `--cap-add SYS_ADMIN` flag to `docker run`. This is
+equivalent to running the container with the `--privileged` option (in fact either option will work). 
+
+To start the demo container use the following command:
+
+    docker run -it -d --name clamav-demo -v /path/to/config/dir:/clamav/etc -p 5000:5000 --cap-add SYS_ADMIN clamav-demo:latest
