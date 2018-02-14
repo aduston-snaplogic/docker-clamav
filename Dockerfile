@@ -7,11 +7,11 @@ RUN apt-get update && apt-get install -y clamav-daemon \
                                          python-setuptools \
                                          build-essential \
                                          python-dev \
-                                         apparmor-utils \
                                          && rm -rf /var/lib/apt/lists/*
 
 # Add an app user
 RUN useradd -c 'Demo app user' -m -d /home/$appuser -s /bin/bash $appuser
+
 # Update the virus database
 RUN freshclam
 
