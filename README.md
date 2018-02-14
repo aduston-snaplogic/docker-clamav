@@ -3,6 +3,10 @@
 This repo is a simple demonstration of how to run clamd with On-Access scanning alongside a web application inside
 a container. It contains a sample web application in Flask that allows uploading a file into the container. 
 
+The [entrypoint.sh](entrypoint.sh) script initiates the clamav and freshclam services along with the flask  demo web app. 
+It is based on this [example](https://docs.docker.com/engine/admin/multi-service_container/) from the official Docker 
+documentation.
+
 ## Building the container 
 
 To build the Docker container check out this repo and run `docker build`:
